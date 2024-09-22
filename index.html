@@ -1,0 +1,240 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Compressez vos images et fichiers PDF en toute simplicité avec FCC. Compression gratuite, rapide et sans perte de qualité.">
+  <meta property="og:title" content="Faut Compresser Chap Chap (FCC) - Compression Gratuite">
+  <meta property="og:description" content="Compressez vos fichiers rapidement et gratuitement. Sans perte de qualité !">
+  <meta property="og:image" content="URL-de-l-image">
+  <meta property="og:url" content="https://www.fautcompresser.com">
+  <title>Faut Compresser Chap Chap (FC2xChap) - Compression Gratuite d'Images et PDF</title>
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  <style>
+    :root {
+      --primary-color: #4CAF50;
+      --secondary-color: #2196F3;
+      --accent-color: #FF9800;
+      --bg-color: #f0f0f0;
+      --text-color: #333;
+    }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      background-color: var(--primary-color);
+      color: white;
+      text-align: center;
+      padding: 1rem;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 2.5rem;
+      animation: bounce 2s infinite;
+    }
+
+    main {
+      flex: 1;
+      padding: 2rem;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .upload-container {
+      background-color: white;
+      border-radius: 10px;
+      padding: 2rem;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+
+    .upload-container:hover {
+      transform: translateY(-5px);
+    }
+
+    .file-input {
+      display: none;
+    }
+
+    .file-label {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: var(--secondary-color);
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .file-label:hover {
+      background-color: #1976D2;
+    }
+
+    #compression-level {
+      width: 100%;
+      margin-top: 1rem;
+    }
+
+    #compress-btn {
+      margin-top: 1rem;
+      padding: 10px 20px;
+      background-color: var(--accent-color);
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    #compress-btn:hover {
+      background-color: #F57C00;
+    }
+
+    #result {
+      margin-top: 2rem;
+      text-align: center;
+    }
+
+    footer {
+      background-color: var(--primary-color);
+      color: white;
+      text-align: center;
+      padding: 1rem;
+      margin-top: 2rem;
+    }
+
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+      }
+      40% {
+        transform: translateY(-20px);
+      }
+      60% {
+        transform: translateY(-10px);
+      }
+    }
+
+    @media (max-width: 600px) {
+      main {
+        padding: 1rem;
+      }
+
+      h1 {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="logo1.png" alt="Logo Faut Compresser Chap Chap" style="max-width: 90px;">
+    <h1>Compression Gratuite d'Images et PDF</h1>
+  </header>
+
+  <main>
+    <section>
+      <h2>Pourquoi choisir notre outil de compression ?</h2>
+      <p>Compressez vos fichiers sans perte de qualité, rapidement et gratuitement. Faut Compresser Chap Chap (FCC) offre une solution performante pour réduire la taille de vos fichiers tout en préservant leur qualité.</p>
+    </section>
+    <div class="upload-container">
+      <h2>Compression Gratuite d'Images et PDF</h2>
+      <p>Compressez vos fichiers sans perte de qualité !</p>
+      <input type="file" id="file-input" class="file-input" accept=".jpg,.jpeg,.png,.pdf">
+      <label for="file-input" class="file-label">Choisir un fichier</label>
+      <p id="file-name"></p>
+      <input type="range" id="compression-level" min="0" max="100" value="50">
+      <p>Niveau de compression: <span id="compression-value">50</span>%</p>
+      <button id="compress-btn">Compresser</button>
+    </div>
+    <div id="result"></div>
+  </main>
+
+  <footer>
+    <p>&copy; 2024 Faut Compresser Chap Chap (FCC). Tous droits réservés.</p>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+  <script>
+    const fileInput = document.getElementById('file-input');
+    const fileName = document.getElementById('file-name');
+    const compressionLevel = document.getElementById('compression-level');
+    const compressionValue = document.getElementById('compression-value');
+    const compressBtn = document.getElementById('compress-btn');
+    const result = document.getElementById('result');
+
+    fileInput.addEventListener('change', (e) => {
+      fileName.textContent = e.target.files[0].name;
+    });
+
+    compressionLevel.addEventListener('input', (e) => {
+      compressionValue.textContent = e.target.value;
+    });
+
+    compressBtn.addEventListener('click', async () => {
+      const file = fileInput.files[0];
+      if (!file) {
+        alert('Veuillez sélectionner un fichier.');
+        return;
+      }
+
+      const compression = compressionLevel.value / 100;
+
+      result.innerHTML = '<p>Compression en cours...</p>';
+
+      if (file.type.startsWith('image/')) {
+        compressImage(file, compression);
+      } else if (file.type === 'application/pdf') {
+        await compressPDF(file, compression);
+      } else {
+        result.innerHTML = '<p>Type de fichier non pris en charge.</p>';
+      }
+    });
+
+    function compressImage(file, compression) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const img = new Image();
+        img.onload = () => {
+          const canvas = document.createElement('canvas');
+          const ctx = canvas.getContext('2d');
+          const scaleFactor = Math.sqrt(1 - compression);
+          canvas.width = img.width * scaleFactor;
+          canvas.height = img.height * scaleFactor;
+          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+          canvas.toBlob((blob) => {
+            saveAs(blob, `compressed_${file.name}`);
+            result.innerHTML = `<p>Compression terminée ! Taille originale : ${(file.size / 1024).toFixed(2)} Ko, Nouvelle taille : ${(blob.size / 1024).toFixed(2)} Ko</p>`;
+          }, file.type, 1 - compression);
+        };
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+
+    async function compressPDF(file, compression) {
+      const arrayBuffer = await file.arrayBuffer();
+      const pdfDoc = await PDFLib.PDFDocument.load(arrayBuffer);
+      const pdfBytes = await pdfDoc.save({ useObjectStreams: false });
+      const compressedPdf = new Blob([pdfBytes], { type: 'application/pdf' });
+      saveAs(compressedPdf, `compressed_${file.name}`);
+      result.innerHTML = `<p>Compression terminée ! Taille originale : ${(file.size / 1024).toFixed(2)} Ko, Nouvelle taille : ${(compressedPdf.size / 1024).toFixed(2)} Ko</p>`;
+    }
+  </script>
+</body>
+</html>
